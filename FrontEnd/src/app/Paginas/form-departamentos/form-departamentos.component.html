@@ -1,0 +1,62 @@
+<div class="titulo">
+    <h2 class="text-center text-uppercase">!BIENVENIDOS!</h2>
+</div>
+
+<div class="container my-5">
+    <div class="col-md-4 offset-md-10">
+        <button type="button" class="btn btn-success" (click)="toggleDiv()">
+            <i class="bi bi-plus-square"></i>
+            Puedes agregar un nuevo departamento
+        </button>
+    </div>
+</div>
+
+<div class="container mt-5 " *ngIf="showDiv">
+    <h3 class="text-center">{{ editMode ? 'Modificar Departamento' : 'Crear Departamento' }}</h3>
+    <form class="py-5 col-lg-6 text-center">
+        <div class="mb-3">
+            <label for="inputImagen" class="form-label">Nombre</label>
+            <input type="text" class="form-control" name="name" [(ngModel)]="name"/>
+        </div>
+        <div class="mb-3">
+            <label for="inputPrecio" class="form-label">Codigo</label>
+            <input type="text" class="form-control" name="codigo" [(ngModel)]="codigo_departamento"/>
+        </div>
+
+        <button (click)="editMode ? putDepartamento() : postData()" type="button"
+            class="btn btn-primary bg-my-color col-12 btn btn-success">
+            {{ editMode ? 'Modificar Departamento' : 'Crear Departamento' }}
+        </button>
+        <button (click)="toggleDiv()" type="button" class="btn btn-danger bg-my-color col-12 mt-3">
+            Cerrar
+        </button>
+    </form>
+    
+</div>
+
+
+<main class="container mt-5 border border-black rounded-3 my-5">
+    <h2>DEPARTAMENTOS</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Nombre</th>
+                <th scope="col">Codigo Departamento</th>
+                <th scope="col">Acciones</th>
+            </tr>
+        </thead>
+        <tbody class="table-group-divider" id="miTabla">
+            <tr *ngFor="let departamentos of allDepartamentos">
+                <td>{{departamentos.name}}</td>
+                <td>${{departamentos.codigo_departamento}}</td>
+                <td class="acciones">
+                    <button type="button" class="btn btn-danger" (click)="departamentosId(departamentos._id)">
+                        <i class="bi bi-pencil-square"></i>
+                        Editar
+                    </button>
+                </td>
+            </tr>
+            
+        </tbody>
+    </table>
+</main>
